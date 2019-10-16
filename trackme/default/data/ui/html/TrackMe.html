@@ -807,6 +807,39 @@ styles in <div> tags, similar to Bootstrap's grid system.
         </div>
     </div>
 
+    <!-- Reset data source collection -->
+    <div class="modal fade" id="modal_reset_metric_host" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="color: indianred;"><span class="glyphicon glyphicon-lock"></span>Metric collection reset</h3>
+                </div>
+                <div class="modal-body">
+                    <p><b>Are you sure that you want to reset the metric host collection?</b><br /><br />
+                        All changes in the collection will be irremediably lost and trackers will be automatically started to populate a fresh collection version.
+                        <br /><br />
+                        <b>Which changes will be affected?</b>
+                        <br />
+                        <lu>
+                            <li>modifications of metric grace periods for all entries</li>
+                            <li>modifications of week days rules for all entries</li>
+                        </lu>
+                        <br />
+                        <b>Blacklisted items will not be touched at any level, and will be preserved in their current state.</b>
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <button type="submit" id="btn_modal_reset_metric_host_confirmed" class="btn btn-default btn-danger pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--
     Custom lagging
     -->
@@ -2137,7 +2170,7 @@ styles in <div> tags, similar to Bootstrap's grid system.
         </div>
     </div>
     
-    <div id="rowSingleFormsDataHost" class="dashboard-row dashboard-rowSingleFormsDataHost" data-depends="$show_host_tracker$">
+    <div id="rowSingleFormsDataHost" class="dashboard-row dashboard-rowSingleFormsDataHost" data-depends="$show_data_host_tracker$">
         <div id="SingleFormsDataHost" class="dashboard-row dashboard-row1" data-original-id="SingleFormsDataHost">
             <div id="SingleFormsDataHostPanel1" class="dashboard-cell" style="width: 33.33%;" data-original-id="SingleFormsDataHostPanel1">
                 <div class="dashboard-panel clearfix">
@@ -2164,6 +2197,41 @@ styles in <div> tags, similar to Bootstrap's grid system.
 
                     <div class="panel-element-row">
                         <div id="singleFormTotalDataHostDisabled" class="dashboard-element single" style="width: 100%">
+                            <div class="panel-body"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rowSingleFormsMetricHost" class="dashboard-row dashboard-rowSingleFormsMetricHost" data-depends="$show_metric_host_tracker$">
+        <div id="SingleFormsMetricHost" class="dashboard-row dashboard-row1" data-original-id="SingleFormsMetricHost">
+            <div id="SingleFormsMetricHostPanel1" class="dashboard-cell" style="width: 33.33%;" data-original-id="SingleFormsMetricHostPanel1">
+                <div class="dashboard-panel clearfix">
+
+                    <div class="panel-element-row">
+                        <div id="singleFormTotalMetricHost" class="dashboard-element single" style="width: 100%">
+                            <div class="panel-body"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="SingleFormsMetricHostPanel2" class="dashboard-cell" style="width: 33.33%;" data-original-id="SingleFormsMetricHostPanel2">
+                <div class="dashboard-panel clearfix">
+
+                    <div class="panel-element-row">
+                        <div id="singleFormTotalMetricHostAlerts" class="dashboard-element single" style="width: 100%">
+                            <div class="panel-body"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="SingleFormsMetricHostPanel3" class="dashboard-cell" style="width: 33.33%;" data-original-id="SingleFormsMetricHostPanel3">
+                <div class="dashboard-panel clearfix">
+
+                    <div class="panel-element-row">
+                        <div id="singleFormTotalMetricHostDisabled" class="dashboard-element single" style="width: 100%">
                             <div class="panel-body"></div>
                         </div>
                     </div>
@@ -2200,7 +2268,7 @@ styles in <div> tags, similar to Bootstrap's grid system.
         </div>
     </div>
 
-    <div id="row2b" class="dashboard-row dashboard-row2" data-depends="$show_host_tracker$">
+    <div id="row2b" class="dashboard-row dashboard-row2" data-depends="$show_data_host_tracker$">
         <div id="panel2b" class="dashboard-cell" style="width: 100%;">
             <div class="dashboard-panel clearfix">
                 <h2 class="panel-title">Click on any entry of the table to open interactive actions for the host:</h2>
@@ -2221,6 +2289,34 @@ styles in <div> tags, similar to Bootstrap's grid system.
                         <label>filter monitored_state:</label>
                     </div>
                     <div class="input input-dropdown" id="refreshHostForm">
+                        <label>Auto refresh:</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="row2c" class="dashboard-row dashboard-row2" data-depends="$show_metric_host_tracker$">
+        <div id="panel2c" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Click on any entry of the table to open interactive actions for the host:</h2>
+                <div class="fieldset">
+                    <div class="input input-dropdown" id="inputMetricHostIndexes">
+                        <label>metric_index:</label>
+                    </div>
+                    <div class="input input-dropdown" id="inputMetricHostCategories">
+                        <label>metric_category:</label>
+                    </div>
+                    <div class="input input-dropdown" id="inputMetricHost">
+                        <label>metric_host:</label>
+                    </div>
+                    <div class="input input-dropdown" id="inputMetricHostState">
+                        <label>filter state:</label>
+                    </div>
+                    <div class="input input-dropdown" id="inputMetricHostMonitoredState">
+                        <label>filter monitored_state:</label>
+                    </div>
+                    <div class="input input-dropdown" id="refreshMetricHostForm">
                         <label>Auto refresh:</label>
                     </div>
                 </div>
@@ -2281,7 +2377,7 @@ styles in <div> tags, similar to Bootstrap's grid system.
         </div>
     </div>
 
-    <div id="rowDataHostsBtns" class="dashboard-row dashboard-rowDataSourcesBtns" data-depends="$show_host_tracker$">
+    <div id="rowDataHostsBtns" class="dashboard-row dashboard-rowDataSourcesBtns" data-depends="$show_data_host_tracker$">
         <div id="panelDataHostsBtns" class="dashboard-cell" style="width: 100%;">
             <div class="dashboard-panel clearfix">
                 <div class="panel-element-row">
@@ -2321,12 +2417,62 @@ styles in <div> tags, similar to Bootstrap's grid system.
         </div>
     </div>
 
-    <div id="rowDataHostsTable" class="dashboard-row dashboard-rowDataSourcesTable" data-depends="$show_host_tracker$">
+    <div id="rowDataMetricHostsBtns" class="dashboard-row dashboard-rowMetricHostsBtns" data-depends="$show_metric_host_tracker$">
+        <div id="panelMetricHostsBtns" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <div class="panel-element-row">
+
+                    <div id="elementBtnsMetricHosts" class="dashboard-element html" style="width: 100%">
+                        <div class="panel-body html">
+                            <div>
+                                <div class="custom-btn">
+                                    <button type="submit" id="btn_modify_metric_host_blacklist_main" style="margin-right: 15px;" class="btn btn-default btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Manage: blacklists sources</button>
+                                </div>
+                                <div class="btn_modify_custom_grace custom-btn">
+                                    <button type="submit" style="margin-right: 15px;" class="btn btn-default btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Manage: define metric grace period classes</button>
+                                </div>
+                                <div class="custom-btn">
+                                    <button type="submit" id="btn_run_tracker_metric_host" style="margin-right: 15px;" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-remove"></span> Manage: run metric tracker now</button>
+                                </div>
+                                <div class="custom-btn">
+                                    <button type="submit" id="btn_manage_reset_metric_host" style="margin-right: 15px;" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Manage: reset collection</button>
+                                </div>
+                            </div>
+                            <div style="float: left;">
+                                <div class="btn_ops_index_queue custom-btn">
+                                    <button type="submit" style="margin-right: 15px;" class="btn btn-default btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Ops: Indexers queues</button>
+                                </div>
+                                <div class="btn_ops_parsing_issues custom-btn">
+                                    <button type="submit" style="margin-right: 15px;" class="btn btn-default btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Ops: Parsing issues</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rowDataHostsTable" class="dashboard-row dashboard-rowDataSourcesTable" data-depends="$show_data_host_tracker$">
         <div id="panelDataHostsTable" class="dashboard-cell" style="width: 100%;">
             <div class="dashboard-panel clearfix">
                 <div class="panel-element-row">
 
-                    <div id="elementMainTableHost" class="dashboard-element table" style="width: 100%">
+                    <div id="elementMainTableDataHost" class="dashboard-element table" style="width: 100%">
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="rowMetricHostsTable" class="dashboard-row dashboard-rowMetricSourcesTable" data-depends="$show_metric_host_tracker$">
+        <div id="panelMetricHostsTable" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <div class="panel-element-row">
+
+                    <div id="elementMainTableMetricHost" class="dashboard-element table" style="width: 100%">
                         <div class="panel-body"></div>
                     </div>
                 </div>
@@ -2674,7 +2820,7 @@ require([
             "auto_cancel": 90,
             "preview": true,
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "runWhenTimeIsUndefined": false
         }, {
@@ -2682,6 +2828,25 @@ require([
             tokenNamespace: "submitted"
         });
 
+        var baseSearchMetricHost = new SearchManager({
+            "id": "baseSearchMetricHost",
+            "earliest_time": "$earliest$",
+            "sample_ratio": null,
+            "cancelOnUnload": true,
+            "latest_time": "$latest$",
+            "search": "| inputlookup trackme_metric_host_monitoring",
+            "status_buckets": 0,
+            "app": utils.getCurrentApp(),
+            "auto_cancel": 90,
+            "preview": true,
+            "tokenDependencies": {
+                "depends": "$show_metric_host_tracker$"
+            },
+            "runWhenTimeIsUndefined": false
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
 
         // data sources monitoring
 
@@ -2947,9 +3112,62 @@ require([
             tokenNamespace: "submitted"
         });
 
+        // metric hosts monitoring
+        var searchMainTableMetricHost = new SearchManager({
+            "id": "searchMainTableMetricHost",
+            "earliest_time": "-5m",
+            "cancelOnUnload": true,
+            "sample_ratio": null,
+            "refreshType": "delay",
+            "refresh": "$refresh$",
+            "latest_time": "now",
+            "search": "| savedsearch \"trackMe - metric host table report\" | `trackme_eval_icons_metric_host`",
+            "status_buckets": 0,
+            "app": utils.getCurrentApp(),
+            "auto_cancel": 90,
+            "preview": true,
+            "tokenDependencies": {
+                "depends": "$show_metric_host_tracker$"
+            },
+            "runWhenTimeIsUndefined": false
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var searchPopulateMetricHostsIndexes = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "makemv metric_index delim=\",\" | stats values(metric_index) as metric_index | mvexpand metric_index | dedup metric_index | sort limit=0 metric_index",
+            "managerid": "baseSearchMetricHost",
+            "id": "searchPopulateMetricHostsIndexes"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var searchPopulateMetricHosts = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "stats count by metric_host | sort limit=0 metric_host",
+            "managerid": "baseSearchMetricHost",
+            "id": "searchPopulateMetricHosts"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var searchPopulateMetricHostsCategories = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "| stats values(metric_category) as metric_category | mvexpand metric_category | dedup metric_category | sort limit=0 metric_category",
+            "managerid": "baseSearchMetricHost",
+            "id": "searchPopulateMetricHostsCategories"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
         // hosts monitoring
-        var searchMainTableHost = new SearchManager({
-            "id": "searchMainTableHost",
+        var searchMainTableDataHost = new SearchManager({
+            "id": "searchMainTableDataHost",
             "earliest_time": "-15m",
             "cancelOnUnload": true,
             "sample_ratio": null,
@@ -2962,7 +3180,7 @@ require([
             "auto_cancel": 90,
             "preview": true,
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "runWhenTimeIsUndefined": false
         }, {
@@ -3083,7 +3301,7 @@ require([
         var searchSingleDataHost2 = new PostProcessManager({
             "tokenDependencies": {},
             "search": "makemv data_index delim=\",\" | makemv data_sourcetype delim=\",\" | search $inputDataHostIndexes$ $inputDataHostSourcetypes$ | where data_host_state=\"red\" | where NOT data_monitored_state=\"disabled\" | stats count",
-            "managerid": "searchMainTableHost",
+            "managerid": "searchMainTableDataHost",
             "id": "searchSingleDataHost2"
         }, {
             tokens: true,
@@ -3095,6 +3313,36 @@ require([
             "search": "makemv data_index delim=\",\" | makemv data_sourcetype delim=\",\" | search $inputDataHostIndexes$ $inputDataHostSourcetypes$ | where data_monitored_state=\"disabled\" | stats count",
             "managerid": "baseSearchDataHost",
             "id": "searchSingleDataHost3"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var searchSingleMetricHost1 = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "makemv metric_index delim=\",\" | makemv metric_category delim=\",\" | search $inputMetricHostIndexes$ $inputMetricHostCategories$ | stats dc(metric_host) as count",
+            "managerid": "baseSearchMetricHost",
+            "id": "searchSingleMetricHost1"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var searchSingleMetricHost2 = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "makemv metric_index delim=\",\" | makemv metric_category delim=\",\" | search $inputMetricHostIndexes$ $inputMetricHostCategories$ | where metric_host_state=\"red\" | where NOT metric_monitored_state=\"disabled\" | stats count",
+            "managerid": "searchMainTableMetricHost",
+            "id": "searchSingleMetricHost2"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
+        var searchSingleMetricHost3 = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "makemv metric_index delim=\",\" | makemv metric_category delim=\",\" | search $inputMetricHostIndexes$ $inputMetricHostCategories$ | where metric_monitored_state=\"disabled\" | stats count",
+            "managerid": "baseSearchMetricHost",
+            "id": "searchSingleMetricHost3"
         }, {
             tokens: true,
             tokenNamespace: "submitted"
@@ -3176,7 +3424,7 @@ require([
             "auto_cancel": 90,
             "preview": true,
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "runWhenTimeIsUndefined": false
         }, {
@@ -3216,7 +3464,7 @@ require([
             "auto_cancel": 90,
             "preview": true,
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "runWhenTimeIsUndefined": false
         }, {
@@ -3256,7 +3504,7 @@ require([
             "auto_cancel": 90,
             "preview": true,
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "runWhenTimeIsUndefined": false
         }, {
@@ -4747,6 +4995,84 @@ require([
             tokenNamespace: "submitted"
         }).render();
 
+        var singleFormTotalMetricHost = new SingleElement({
+            "id": "singleFormTotalMetricHost",
+            "showTrendIndicator": "1",
+            "unitPosition": "after",
+            "useThousandSeparators": "1",
+            "numberPrecision": "0",
+            "colorBy": "value",
+            "colorMode": "block",
+            "drilldown": "none",
+            "showSparkline": "1",
+            "trellis.scales.shared": "1",
+            "useColors": "1",
+            "trendDisplayMode": "absolute",
+            "trellis.enabled": "0",
+            "trendColorInterpretation": "standard",
+            "trellis.size": "medium",
+            "rangeValues": "[0]",
+            "rangeColors": "[\"0x779ecb\",\"0x779ecb\"]",
+            "underLabel": "METRIC HOSTS",
+            "managerid": "searchSingleMetricHost1",
+            "el": $('#singleFormTotalMetricHost')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
+
+        var singleFormTotalMetricHostAlerts = new SingleElement({
+            "id": "singleFormTotalMetricHostAlerts",
+            "showTrendIndicator": "1",
+            "unitPosition": "after",
+            "useThousandSeparators": "1",
+            "numberPrecision": "0",
+            "colorBy": "value",
+            "colorMode": "block",
+            "drilldown": "none",
+            "showSparkline": "1",
+            "trellis.scales.shared": "1",
+            "useColors": "1",
+            "trendDisplayMode": "absolute",
+            "trellis.enabled": "0",
+            "trendColorInterpretation": "standard",
+            "trellis.size": "medium",
+            "rangeValues": "[0]",
+            "rangeColors": "[\"0x779ecb\",\"0xff6961\"]",
+            "underLabel": "METRIC HOSTS IN ALERT",
+            "managerid": "searchSingleMetricHost2",
+            "el": $('#singleFormTotalMetricHostAlerts')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
+
+        var singleFormTotalMetricHostDisabled = new SingleElement({
+            "id": "singleFormTotalMetricHostDisabled",
+            "showTrendIndicator": "1",
+            "unitPosition": "after",
+            "useThousandSeparators": "1",
+            "numberPrecision": "0",
+            "colorBy": "value",
+            "colorMode": "block",
+            "drilldown": "none",
+            "showSparkline": "1",
+            "trellis.scales.shared": "1",
+            "useColors": "1",
+            "trendDisplayMode": "absolute",
+            "trellis.enabled": "0",
+            "trendColorInterpretation": "standard",
+            "trellis.size": "medium",
+            "rangeValues": "[0]",
+            "rangeColors": "[\"0x779ecb\",\"0x779ecb\"]",
+            "underLabel": "METRIC HOSTS NOT MONITORED",
+            "managerid": "searchSingleMetricHost3",
+            "el": $('#singleFormTotalMetricHostDisabled')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
+
         var singleBlackListDataSourceHost = new SingleElement({
             "id": "singleBlackListDataSourceHost",
             "trendDisplayMode": "absolute",
@@ -5106,21 +5432,21 @@ require([
 
         // data host monitoring
 
-        var elementMainTableHost = new TableElement({
-            "id": "elementMainTableHost",
+        var elementMainTableDataHost = new TableElement({
+            "id": "elementMainTableDataHost",
             "count": 100,
             "drilldown": "row",
             "fields": "data_host, data_index, data_sourcetype, \"last time\", \"last ingest\", state, data_last_lag_seen, data_max_lag_allowed, monitoring, data_monitoring_wdays",
             "refresh.display": "none",
             "wrap": "false",
-            "managerid": "searchMainTableHost",
-            "el": $('#elementMainTableHost')
+            "managerid": "searchMainTableDataHost",
+            "el": $('#elementMainTableDataHost')
         }, {
             tokens: true,
             tokenNamespace: "submitted"
         }).render();
 
-        elementMainTableHost.on("click", function(e) {
+        elementMainTableDataHost.on("click", function(e) {
             if (e.field !== undefined) {
                 e.preventDefault();
 
@@ -5182,6 +5508,22 @@ require([
 
             }
         });
+
+        // Metric host monitoring
+
+        var elementMainTableMetricHost = new TableElement({
+            "id": "elementMainTableMetricHost",
+            "count": 100,
+            "drilldown": "row",
+            "fields": "metric_host, metric_index, metric_category, metric_details_human, \"last time\", state, monitoring",
+            "refresh.display": "none",
+            "wrap": "false",
+            "managerid": "searchMainTableMetricHost",
+            "el": $('#elementMainTableMetricHost')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
 
         // Custom lagging
 
@@ -6133,8 +6475,12 @@ require([
                     "label": "DATA SOURCES AVAILABILITY TRACKING"
                 },
                 {
-                    "value": "show_host_tracker",
+                    "value": "show_data_host_tracker",
                     "label": "DATA HOSTS AVAILABILITY TRACKING"
+                },
+                {
+                    "value": "show_metric_host_tracker",
+                    "label": "METRIC HOSTS AVAILABILITY TRACKING"
                 },
                 {
                     "value": "show_audit_flip",
@@ -6161,23 +6507,33 @@ require([
         link1.on("valueChange", function(e) {
             if (e.value === "show_data_source_tracker") {
                 EventHandler.setToken("show_data_source_tracker", "true", {}, e.data);
-                EventHandler.unsetToken("show_host_tracker");
+                EventHandler.unsetToken("show_data_host_tracker");
+                EventHandler.unsetToken("show_metric_host_tracker");
                 EventHandler.unsetToken("show_audit_flip");
                 EventHandler.unsetToken("show_audit_changes");
-            } else if (e.value === "show_host_tracker") {
-                EventHandler.setToken("show_host_tracker", "true", {}, e.data);
+            } else if (e.value === "show_data_host_tracker") {
+                EventHandler.setToken("show_data_host_tracker", "true", {}, e.data);
                 EventHandler.unsetToken("show_data_source_tracker");
+                EventHandler.unsetToken("show_metric_host_tracker");
+                EventHandler.unsetToken("show_audit_flip");
+                EventHandler.unsetToken("show_audit_changes");
+            } else if (e.value === "show_metric_host_tracker") {
+                EventHandler.setToken("show_metric_host_tracker", "true", {}, e.data);
+                EventHandler.unsetToken("show_data_source_tracker");
+                EventHandler.unsetToken("show_data_host_tracker");
                 EventHandler.unsetToken("show_audit_flip");
                 EventHandler.unsetToken("show_audit_changes");
             } else if (e.value === "show_audit_flip") {
                 EventHandler.setToken("show_audit_flip", "true", {}, e.data);
                 EventHandler.unsetToken("show_data_source_tracker");
-                EventHandler.unsetToken("show_host_tracker");
+                EventHandler.unsetToken("show_metric_host_tracker");
+                EventHandler.unsetToken("show_data_host_tracker");
                 EventHandler.unsetToken("show_audit_changes");
             } else if (e.value === "show_audit_changes") {
                 EventHandler.setToken("show_audit_changes", "true", {}, e.data);
                 EventHandler.unsetToken("show_data_source_tracker");
-                EventHandler.unsetToken("show_host_tracker");
+                EventHandler.unsetToken("show_data_host_tracker");
+                EventHandler.unsetToken("show_metric_host_tracker");
                 EventHandler.unsetToken("show_audit_flip");
             }
         });
@@ -6519,10 +6875,201 @@ require([
             FormUtils.handleValueChange(inputDataSourcetype);
         });
 
+        // metric host monitoring
+
+        var inputMetricHostIndexes = new DropdownInput({
+            "id": "inputMetricHostIndexes",
+            "tokenDependencies": {
+                "depends": "$show_metric_host_tracker$"
+            },
+            "choices": [{
+                "label": "ANY",
+                "value": "*"
+            }],
+            "searchWhenChanged": true,
+            "default": "*",
+            "showClearButton": true,
+            "labelField": "metric_index",
+            "prefix": "metric_index=\"",
+            "suffix": "\"",
+            "initialValue": "*",
+            "selectFirstChoice": false,
+            "valueField": "metric_index",
+            "value": "$form.inputMetricHostIndexes$",
+            "managerid": "searchPopulateMetricHostsIndexes",
+            "el": $('#inputMetricHostIndexes')
+        }, {
+            tokens: true
+        }).render();
+
+        inputMetricHostIndexes.on("change", function(newValue) {
+            FormUtils.handleValueChange(inputMetricHostIndexes);
+        });
+
+        var inputMetricHostCategories = new DropdownInput({
+            "id": "inputMetricHostCategories",
+            "tokenDependencies": {
+                "depends": "$show_metric_host_tracker$"
+            },
+            "choices": [{
+                "label": "ANY",
+                "value": "*"
+            }],
+            "searchWhenChanged": true,
+            "default": "*",
+            "showClearButton": true,
+            "labelField": "metric_category",
+            "prefix": "metric_category=\"",
+            "suffix": "\"",
+            "initialValue": "*",
+            "selectFirstChoice": false,
+            "valueField": "metric_category",
+            "value": "$form.inputMetricHostCategories$",
+            "managerid": "searchPopulateMetricHostsCategories",
+            "el": $('#inputMetricHostCategories')
+        }, {
+            tokens: true
+        }).render();
+
+        inputMetricHostCategories.on("change", function(newValue) {
+            FormUtils.handleValueChange(inputMetricHostCategories);
+        });
+
+        var inputMetricHost = new DropdownInput({
+            "id": "inputMetricHost",
+            "tokenDependencies": {
+                "depends": "$show_metric_host_tracker$"
+            },
+            "choices": [{
+                "label": "ANY",
+                "value": "*"
+            }],
+            "searchWhenChanged": true,
+            "default": "*",
+            "showClearButton": true,
+            "labelField": "metric_host",
+            "prefix": "metric_host=\"",
+            "suffix": "\"",
+            "initialValue": "*",
+            "selectFirstChoice": false,
+            "valueField": "metric_host",
+            "value": "$form.inputMetricHost$",
+            "managerid": "searchPopulateMetricHosts",
+            "el": $('#inputMetricHost')
+        }, {
+            tokens: true
+        }).render();
+
+        inputMetricHost.on("change", function(newValue) {
+            FormUtils.handleValueChange(inputMetricHost);
+        });
+
+        var inputMetricHostState = new DropdownInput({
+            "id": "inputMetricHostState",
+            "choices": [{
+                    "label": "Any",
+                    "value": "*"
+                },
+                {
+                    "label": "Green",
+                    "value": "Green"
+                },
+                {
+                    "label": "Orange",
+                    "value": "Orange"
+                },
+                {
+                    "label": "Red",
+                    "value": "Red"
+                }
+            ],
+            "searchWhenChanged": true,
+            "default": "*",
+            "showClearButton": true,
+            "prefix": "metric_host_state=\"",
+            "suffix": "\"",
+            "initialValue": "*",
+            "selectFirstChoice": false,
+            "value": "$form.metric_host_state$",
+            "el": $('#inputMetricHostState')
+        }, {
+            tokens: true
+        }).render();
+
+        inputMetricHostState.on("change", function(newValue) {
+            FormUtils.handleValueChange(inputMetricHostState);
+        });
+
+        var inputMetricHostMonitoredState = new DropdownInput({
+            "id": "inputMetricHostMonitoredState",
+            "choices": [{
+                    "label": "Any",
+                    "value": "*"
+                },
+                {
+                    "label": "Enabled",
+                    "value": "enabled"
+                },
+                {
+                    "label": "Disabled",
+                    "value": "disabled"
+                }
+            ],
+            "searchWhenChanged": true,
+            "default": "enabled",
+            "showClearButton": true,
+            "prefix": "metric_monitored_state=\"",
+            "suffix": "\"",
+            "initialValue": "enabled",
+            "selectFirstChoice": false,
+            "value": "$form.metric_monitored_state$",
+            "el": $('#inputMetricHostMonitoredState')
+        }, {
+            tokens: true
+        }).render();
+
+        inputMetricHostMonitoredState.on("change", function(newValue) {
+            FormUtils.handleValueChange(inputMetricHostMonitoredState);
+        });
+
+        var refreshMetricHostForm = new DropdownInput({
+            "id": "refreshMetricHostForm",
+            "choices": [{
+                    "value": "60",
+                    "label": "1 min"
+                },
+                {
+                    "value": "120",
+                    "label": "2 min"
+                },
+                {
+                    "value": "300",
+                    "label": "5 min"
+                },
+                {
+                    "value": "none",
+                    "label": "none"
+                }
+            ],
+            "selectFirstChoice": false,
+            "default": "60",
+            "showClearButton": true,
+            "initialValue": "60",
+            "searchWhenChanged": true,
+            "value": "$refresh$",
+            "el": $('#refreshMetricHostForm')
+        }, {
+            tokens: true
+        }).render();
+
+        refreshMetricHostForm.on("change", function(newValue) {
+            FormUtils.handleValueChange(refreshMetricHostForm);
+        });
+
         var inputDataHostIndexes = new DropdownInput({
             "id": "inputDataHostIndexes",
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "choices": [{
                 "label": "ANY",
@@ -6551,7 +7098,7 @@ require([
         var inputDataHostSourcetypes = new DropdownInput({
             "id": "inputDataHostSourcetypes",
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "choices": [{
                 "label": "ANY",
@@ -6580,7 +7127,7 @@ require([
         var inputDataHost = new DropdownInput({
             "id": "inputDataHost",
             "tokenDependencies": {
-                "depends": "$show_host_tracker$"
+                "depends": "$show_data_host_tracker$"
             },
             "choices": [{
                 "label": "ANY",
@@ -6806,8 +7353,8 @@ require([
             tokens: true
         }).render();
 
-        refreshForm.on("change", function(newValue) {
-            FormUtils.handleValueChange(refreshForm);
+        refreshHostForm.on("change", function(newValue) {
+            FormUtils.handleValueChange(refreshHostForm);
         });
 
         //
@@ -7075,7 +7622,7 @@ require([
                         success: function(returneddata) {
                             //console.log("Updated!", returneddata)
                             // Run the search again to update the table
-                            searchMainTableHost.startSearch();
+                            searchMainTableDataHost.startSearch();
                             baseSearchDataHost.startSearch();
                             searchSingleDataHost1.startSearch();
                             searchSingleDataHost2.startSearch();
@@ -7357,7 +7904,7 @@ require([
                         success: function(returneddata) {
                             //console.log("Updated!", returneddata)
                             // Run the search again to update the table
-                            searchMainTableHost.startSearch();
+                            searchMainTableDataHost.startSearch();
 
                             // Audit success change
                             var time = (new Date).getTime();
@@ -7712,7 +8259,7 @@ require([
                             searchSingleDataHost1.startSearch();
                             searchSingleDataHost2.startSearch();
                             searchSingleDataHost3.startSearch();
-                            searchMainTableHost.startSearch();
+                            searchMainTableDataHost.startSearch();
 
                             // Audit success change
                             var time = (new Date).getTime();
@@ -7796,7 +8343,7 @@ require([
                             searchSingleDataHost1.startSearch();
                             searchSingleDataHost2.startSearch();
                             searchSingleDataHost3.startSearch();
-                            searchMainTableHost.startSearch();
+                            searchMainTableDataHost.startSearch();
 
                             // Audit success change
                             var time = (new Date).getTime();
@@ -8473,7 +9020,7 @@ require([
                                     // Once the job is done, update all searches
                                     searchBlackListDataHostHost.startSearch();
                                     searchSingleBlackListDataHostHost.startSearch();
-                                    searchMainTableHost.startSearch();
+                                    searchMainTableDataHost.startSearch();
                                     baseSearchDataHost.startSearch();
                                     searchSingleDataHost1.startSearch();
                                     searchSingleDataHost2.startSearch();
@@ -8580,7 +9127,7 @@ require([
                         // Run the search again to update the table
                         searchBlackListDataHostHost.startSearch();
                         searchSingleBlackListDataHostHost.startSearch();
-                        searchMainTableHost.startSearch();
+                        searchMainTableDataHost.startSearch();
                         baseSearchDataHost.startSearch();
                         searchSingleDataHost1.startSearch();
                         searchSingleDataHost2.startSearch();
@@ -9015,7 +9562,7 @@ require([
                                     searchSingleDataHost1.startSearch();
                                     searchSingleDataHost2.startSearch();
                                     searchSingleDataHost3.startSearch();
-                                    searchMainTableHost.startSearch();
+                                    searchMainTableDataHost.startSearch();
 
                                     // notify
                                     notification('Modification has been registered successfully.', 2000)
@@ -9118,7 +9665,7 @@ require([
                         // Run the search again to update the table
                         searchBlackListDataHostIndex.startSearch();
                         searchSingleBlackListDataHostIndex.startSearch();
-                        searchMainTableHost.startSearch();
+                        searchMainTableDataHost.startSearch();
                         baseSearchDataHost.startSearch();
                         searchSingleDataHost1.startSearch();
                         searchSingleDataHost2.startSearch();
@@ -9551,7 +10098,7 @@ require([
                                     searchSingleDataHost1.startSearch();
                                     searchSingleDataHost2.startSearch();
                                     searchSingleDataHost3.startSearch();
-                                    searchMainTableHost.startSearch();
+                                    searchMainTableDataHost.startSearch();
 
                                     // notify
                                     notification('Modification has been registered successfully.', 2000)
@@ -9681,7 +10228,7 @@ require([
                         searchSingleDataHost1.startSearch();
                         searchSingleDataHost2.startSearch();
                         searchSingleDataHost3.startSearch();
-                        searchMainTableHost.startSearch();
+                        searchMainTableDataHost.startSearch();
 
                         // notify
                         notification('Modification has been registered successfully.', 2000)
@@ -10226,6 +10773,333 @@ require([
 
         });
 
+        // metric host
+
+        // reset collection
+        $("#btn_manage_reset_metric_host").click(function() {
+            submitTokens();
+
+            // When the Submit button is clicked, get all the form fields by accessing token values
+            var tokens = mvc.Components.get("default");
+
+            $("#modal_reset_metric_host").modal()
+
+            $("#btn_modal_reset_metric_host_confirmed").click(function() {
+
+                //console.log("Reset of metric host collection");
+
+                // Define the query
+                var searchQuery = "| outputlookup trackme_metric_host_monitoring";
+
+                // Set the search parameters--specify a time range
+                var searchParams = {
+                    earliest_time: "-5m",
+                    latest_time: "now"
+                };
+
+                // Run a normal search that immediately returns the job's SID
+                service.search(
+                    searchQuery,
+                    searchParams,
+                    function(err, job) {
+
+                        $("#loadingGray").remove()
+                        $("body").append('<div id="loadingGray" style="background: #e9e9e9; display: block; position: fixed; z-index: 100; top: 0; right: 0; bottom: 0; left: 0; height: 100%; opacity: 0.8;"><div style="width: 100%; margin-top: 250px; padding-bottom: 50px; text-align: center;"><p style="font-size: 18pt; font-weight: bolder;">Flushing data hosts KVstore collection and running metric tracker, please wait...</p></div><div id="spinner"></div></div>')
+
+                        require(["jquery",
+                                "/static/app/trackme/spin.js"
+                            ],
+                            function($,
+                                Spinner
+                            ) {
+                                new Spinner({
+                                    lines: 12,
+                                    position: "relative"
+                                }).spin(document.getElementById('spinner'));
+                            })
+
+                        function audit_failure() {
+                            // Audit failure change
+                            var time = (new Date).getTime();
+                            var audit_record = {
+                                "time": time,
+                                "action": "failure",
+                                "user": currentUser,
+                                "change_type": "reset",
+                                "object_category": "data_host",
+                                "object": "full_collection"
+                            };
+                            $.ajax({
+                                url: auditendpoint_URl,
+                                type: "POST",
+                                async: true,
+                                contentType: "application/json",
+                                data: JSON.stringify(audit_record),
+                                success: function(returneddata) {
+                                    //console.log("Updated!", returneddata)
+                                    // Run the search again to update the table
+                                }
+                            });
+                        }
+
+                        // Shall the search fail before we can get properties
+                        if (job == null) {
+                            let errorStr = "Unknown Error!";
+                            if (err && err.data && err.data.messages && err.data.messages[0]['text']) {
+                                errorStr = err.data.messages[0]['text'];
+                            } else if (err && err.data && err.data.messages) {
+                                errorStr = JSON.stringify(err.data.messages);
+                            }
+                            $("#loadingGray").remove()
+                            audit_failure();
+                            $("#modal_update_collection_failure_return").find('.modal-error-message p').text(errorStr);
+                            $("#modal_update_collection_failure_return").modal()
+                        } else {
+
+                            // Poll the status of the search job
+                            job.track({
+                                period: 200
+                            }, {
+                                done: function(job) {
+                                    //console.log("Done!");
+
+                                    // Once the job is done, update all searches
+
+                                    // Define the query
+                                    var searchQuery = "| savedsearch \"TrackMe - metric hosts availability tracker\"";
+
+                                    // Set the search parameters--specify a time range
+                                    var searchParams = {
+                                        earliest_time: "-5m",
+                                        latest_time: "now"
+                                    };
+
+                                    // Run a normal search that immediately returns the job's SID
+                                    service.search(
+                                        searchQuery,
+                                        searchParams,
+                                        function(err, job) {
+
+                                            require(["jquery",
+                                                    "/static/app/trackme/spin.js"
+                                                ],
+                                                function($,
+                                                    Spinner
+                                                ) {
+                                                    new Spinner({
+                                                        lines: 12,
+                                                        position: "relative"
+                                                    }).spin(document.getElementById('spinner'));
+                                                })
+
+                                            // Shall the search fail before we can get properties
+                                            if (job == null) {
+                                                let errorStr = "Unknown Error!";
+                                                if (err && err.data && err.data.messages && err.data.messages[0]['text']) {
+                                                    errorStr = err.data.messages[0]['text'];
+                                                } else if (err && err.data && err.data.messages) {
+                                                    errorStr = JSON.stringify(err.data.messages);
+                                                }
+                                                $("#loadingGray").remove()
+                                                audit_failure();
+                                                $("#modal_update_collection_failure_return").find('.modal-error-message p').text(errorStr);
+                                                $("#modal_update_collection_failure_return").modal()
+                                            } else {
+
+                                                // Poll the status of the search job
+                                                job.track({
+                                                    period: 200
+                                                }, {
+                                                    done: function(job) {
+                                                        //console.log("Done!");
+
+                                                        // Once the job is done, update all searches
+                                                        baseSearchMetricHost.startSearch();
+                                                        searchSingleMetricHost1.startSearch();
+                                                        searchSingleMetricHost2.startSearch();
+                                                        searchSingleMetricHost3.startSearch();
+                                                        searchMainTableMetricHost.startSearch();
+
+                                                        // Audit success change
+                                                        var time = (new Date).getTime();
+                                                        var audit_record = {
+                                                            "time": time,
+                                                            "action": "success",
+                                                            "user": currentUser,
+                                                            "change_type": "reset",
+                                                            "object_category": "metric_host",
+                                                            "object": "full_collection"
+                                                        };
+                                                        $.ajax({
+                                                            url: auditendpoint_URl,
+                                                            type: "POST",
+                                                            async: true,
+                                                            contentType: "application/json",
+                                                            data: JSON.stringify(audit_record),
+                                                            success: function(returneddata) {
+                                                                //console.log("Updated!", returneddata)
+                                                                // Run the search again to update the table
+                                                            }
+                                                        });
+
+                                                        $("#loadingGray").remove()
+                                                        $("#modal_update_collection_done").modal()
+
+                                                    },
+                                                    failed: function(properties) {
+                                                        let errorStr = "Unknown Error!";
+                                                        if (properties && properties._properties && properties._properties.messages && properties._properties.messages[0]['text']) {
+                                                            errorStr = properties._properties.messages[0]['text'];
+                                                        } else if (properties && properties._properties && properties._properties.messages) {
+                                                            errorStr = JSON.stringify(properties._properties.messages);
+                                                        }
+                                                        $("#loadingGray").remove()
+                                                        audit_failure();
+                                                        $("#modal_update_collection_failure_return").find('.modal-error-message p').text(errorStr);
+                                                        $("#modal_update_collection_failure_return").modal()
+                                                    },
+                                                    error: function(err) {
+                                                        done(err);
+                                                        $("#loadingGray").remove()
+                                                        audit_failure();
+                                                        $("#modal_update_collection_failure").modal()
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    );
+
+                                },
+                                failed: function(properties) {
+                                    let errorStr = "Unknown Error!";
+                                    if (properties && properties._properties && properties._properties.messages && properties._properties.messages[0]['text']) {
+                                        errorStr = properties._properties.messages[0]['text'];
+                                    } else if (properties && properties._properties && properties._properties.messages) {
+                                        errorStr = JSON.stringify(properties._properties.messages);
+                                    }
+                                    $("#loadingGray").remove()
+                                    audit_failure();
+                                    $("#modal_update_collection_failure_return").find('.modal-error-message p').text(errorStr);
+                                    $("#modal_update_collection_failure_return").modal()
+                                },
+                                error: function(err) {
+                                    done(err);
+                                    $("#loadingGray").remove()
+                                    audit_failure();
+                                    $("#modal_update_collection_failure").modal()
+                                }
+                            });
+                        }
+                    }
+                );
+
+            });
+
+        });
+
+        // Run tracker
+        $("#btn_run_tracker_metric_host").click(function() {
+            submitTokens();
+
+            // When the Submit button is clicked, get all the form fields by accessing token values
+            var tokens = mvc.Components.get("default");
+
+            //console.log("Start collection update");
+
+            // Define the query
+            var searchQuery = "| savedsearch \"TrackMe - metric hosts availability tracker\"";
+
+            // Set the search parameters--specify a time range
+            var searchParams = {
+                earliest_time: "-5m",
+                latest_time: "now"
+            };
+
+            // Run a normal search that immediately returns the job's SID
+            service.search(
+                searchQuery,
+                searchParams,
+                function(err, job) {
+
+                    $("#loadingGray").remove()
+                    $("body").append('<div id="loadingGray" style="background: #e9e9e9; display: block; position: fixed; z-index: 100; top: 0; right: 0; bottom: 0; left: 0; height: 100%; opacity: 0.8;"><div style="width: 100%; margin-top: 250px; padding-bottom: 50px; text-align: center;"><p style="font-size: 18pt; font-weight: bolder;">Running the metric tracker...</p></div><div id="spinner"></div></div>')
+
+                    require(["jquery",
+                            "/static/app/trackme/spin.js"
+                        ],
+                        function($,
+                            Spinner
+                        ) {
+                            new Spinner({
+                                lines: 12,
+                                position: "relative"
+                            }).spin(document.getElementById('spinner'));
+                        })
+
+                    // Shall the search fail before we can get properties
+                    if (job == null) {
+                        let errorStr = "Unknown Error!";
+                        if (err && err.data && err.data.messages && err.data.messages[0]['text']) {
+                            errorStr = err.data.messages[0]['text'];
+                        } else if (err && err.data && err.data.messages) {
+                            errorStr = JSON.stringify(err.data.messages);
+                        }
+                        $("#loadingGray").remove()
+                        $("#modal_update_collection_failure_return").find('.modal-error-message p').text(errorStr);
+                        $("#modal_update_collection_failure_return").modal()
+                    } else {
+
+                        // Poll the status of the search job
+                        job.track({
+                            period: 200
+                        }, {
+                            done: function(job) {
+                                //console.log("Done!");
+
+                                // Once the job is done, update all searches
+                                searchMainTableMetricHost.startSearch();
+                                baseSearchMetricHost.startSearch();
+                                searchSingleMetricHost1.startSearch();
+                                searchSingleMetricHost2.startSearch();
+                                searchSingleMetricHost3.startSearch();
+
+                                $("#loadingGray").remove()
+                                $("#modal_update_collection_done").modal()
+
+                            },
+                            failed: function(properties) {
+                                let errorStr = "Unknown Error!";
+                                if (properties && properties._properties && properties._properties.messages && properties._properties.messages[0]['text']) {
+                                    errorStr = properties._properties.messages[0]['text'];
+                                } else if (properties && properties._properties && properties._properties.messages) {
+                                    errorStr = JSON.stringify(properties._properties.messages);
+                                }
+                                $("#loadingGray").remove()
+                                $("#modal_update_collection_failure_return").find('.modal-error-message p').text(errorStr);
+                                $("#modal_update_collection_failure_return").modal()
+                            },
+                            error: function(err) {
+                                done(err);
+                                $("#loadingGray").remove()
+                                $("#modal_update_collection_failure").modal()
+                            }
+                        });
+                    }
+                }
+            );
+
+        });
+
+
+
+
+
+
+
+
+
+
+
         // data host
 
         $("#btn_manage_reset_data_host").click(function() {
@@ -10370,7 +11244,7 @@ require([
                                                         searchSingleDataHost1.startSearch();
                                                         searchSingleDataHost2.startSearch();
                                                         searchSingleDataHost3.startSearch();
-                                                        searchMainTableHost.startSearch();
+                                                        searchMainTableDataHost.startSearch();
 
                                                         // Audit success change
                                                         var time = (new Date).getTime();
@@ -10610,7 +11484,7 @@ require([
                                 //console.log("Done!");
 
                                 // Once the job is done, update all searches
-                                searchMainTableHost.startSearch();
+                                searchMainTableDataHost.startSearch();
                                 baseSearchDataHost.startSearch();
                                 searchSingleDataHost1.startSearch();
                                 searchSingleDataHost2.startSearch();
@@ -10798,7 +11672,7 @@ require([
                                 //console.log("Done!");
 
                                 // Once the job is done, update all searches
-                                searchMainTableHost.startSearch();
+                                searchMainTableDataHost.startSearch();
                                 baseSearchDataHost.startSearch();
                                 searchSingleDataHost1.startSearch();
                                 searchSingleDataHost2.startSearch();
@@ -10955,7 +11829,7 @@ require([
                                                     searchSingleDataHost1.startSearch();
                                                     searchSingleDataHost2.startSearch();
                                                     searchSingleDataHost3.startSearch();
-                                                    searchMainTableHost.startSearch();
+                                                    searchMainTableDataHost.startSearch();
 
                                                     $("#loadingGray").remove()
                                                     $("#modal_update_collection_done").modal()
@@ -11786,7 +12660,7 @@ require([
                     success: function(returneddata) {
                         //console.log("Updated!", returneddata)
                         // Run the search again to update the table
-                        searchMainTableHost.startSearch();
+                        searchMainTableDataHost.startSearch();
                         baseSearchDataHost.startSearch();
                         searchSingleDataHost1.startSearch();
                         searchSingleDataHost2.startSearch();
@@ -11932,7 +12806,7 @@ require([
                     success: function(returneddata) {
                         //console.log("Updated!", returneddata)
                         // Run the search again to update the table
-                        searchMainTableHost.startSearch();
+                        searchMainTableDataHost.startSearch();
                         baseSearchDataHost.startSearch();
                         searchSingleDataHost1.startSearch();
                         searchSingleDataHost2.startSearch();
@@ -12092,7 +12966,7 @@ require([
                     success: function(returneddata) {
                         //console.log("Updated!", returneddata)
                         // Run the search again to update the table
-                        searchMainTableHost.startSearch();
+                        searchMainTableDataHost.startSearch();
                         baseSearchDataHost.startSearch();
                         searchSingleDataHost1.startSearch();
                         searchSingleDataHost2.startSearch();
