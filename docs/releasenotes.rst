@@ -1,10 +1,13 @@
 Release notes
 #############
 
+Version 1.0.20
+==============
+- Feature: Introducing support for metrics monitoring with metric hosts and multi-metrics layer
+
 Version 1.0.19
 ==============
-
-- Feature: Introducing support for metrics monitoring with metric hosts and multi-metrics layer
+- Fix: Issue #32, if the data is offline for a long period that is out of the scope of the long term trackers, the last lag seen in seconds is not properly updated at each run time of the trackers.
 
 Version 1.0.18
 ==============
