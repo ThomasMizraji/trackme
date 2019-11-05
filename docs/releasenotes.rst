@@ -1,9 +1,15 @@
 Release notes
 #############
 
+Version 1.0.21
+==============
+
+- Feature: Introducing support for metrics monitoring with metric hosts and multi-metrics layer
+
 Version 1.0.20
 ==============
-- Feature: Introducing support for metrics monitoring with metric hosts and multi-metrics layer
+
+- fix: Issue #34: Lagging class override for data_source is not registered properly
 
 Version 1.0.19
 ==============
