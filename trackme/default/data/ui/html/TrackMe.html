@@ -406,6 +406,15 @@ styles in <div> tags, similar to Bootstrap's grid system.
                         </div>
 
                         <div id="rowHostMetricChart" class="dashboard-row dashboard-row1">
+                            <div id="panelHostMetricSingle" class="dashboard-cell" style="width: 100%;">
+                                <div class="dashboard-panel clearfix">
+                                    <div class="panel-element-row">
+                                        <div id="elementHostSingleMetricHost" class="dashboard-element chart" style="width: 100%">
+                                            <div class="panel-body"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="panelHostMetricChart" class="dashboard-cell" style="width: 100%;">
                                 <div class="dashboard-panel clearfix">
                                     <div class="panel-element-row">
@@ -423,7 +432,7 @@ styles in <div> tags, similar to Bootstrap's grid system.
                                     <div class="panel-element-row">
                                         <div class="fieldset">
                                             <div id="elementHostTableMetricHost" class="dashboard-element table" style="width: 100%">
-                                                <label>Click on the table for interactive actions:</label>
+                                                <label>Metrics availability table:</label>
                                                 <div class="panel-body"></div>
                                             </div>
                                         </div>
@@ -3527,6 +3536,16 @@ require([
             tokenNamespace: "submitted"
         });
 
+        var searchHostSingleMetricHost = new PostProcessManager({
+            "tokenDependencies": {},
+            "search": "stats count as count_metric_category, count(eval(metric_host_state=\"green\")) as count_green, count(eval(metric_host_state!=\"green\")) as count_non_green | eval summary=\" metric categories: \" . count_metric_category .  \", \" . \"green state: \" . count_green . \", \" . \"not green state: \" . count_non_green | fields summary",
+            "managerid": "searchHostTableMetricHost",
+            "id": "searchHostSingleMetricHost"
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        });
+
         var searchHostChartMetricHost = new PostProcessManager({
             "tokenDependencies": {},
             "search": "top metric_host_state",
@@ -6111,7 +6130,7 @@ require([
         var elementHostTableMetricHost = new TableElement({
             "id": "elementHostTableMetricHost",
             "count": 10,
-            "drilldown": "row",
+            "drilldown": "none",
             "fields": "metric_category, metric_last_time, metric_max_lag_allowed, metric_current_lag_sec, state",
             "refresh.display": "none",
             "wrap": "false",
@@ -6180,6 +6199,33 @@ require([
 
             }
         });
+
+        var elementHostSingleMetricHost = new SingleElement({
+            "id": "elementHostSingleMetricHost",
+            "trendDisplayMode": "absolute",
+            "numberPrecision": "0.00",
+            "drilldown": "none",
+            "height": "80",
+            "trellis.size": "medium",
+            "trendColorInterpretation": "standard",
+            "useColors": "0",
+            "colorBy": "value",
+            "showTrendIndicator": "1",
+            "showSparkline": "1",
+            "trellis.enabled": "0",
+            "rangeColors": "[\"0x53a051\",\"0x0877a6\",\"0xf8be34\",\"0xf1813f\",\"0xdc4e41\"]",
+            "colorMode": "none",
+            "rangeValues": "[0,30,70,100]",
+            "unitPosition": "after",
+            "trellis.scales.shared": "1",
+            "useThousandSeparators": "1",
+            "underLabel": "SUMMARY",
+            "managerid": "searchHostSingleMetricHost",
+            "el": $('#elementHostSingleMetricHost')
+        }, {
+            tokens: true,
+            tokenNamespace: "submitted"
+        }).render();
 
         // Custom lagging
 
